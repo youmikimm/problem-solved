@@ -28,7 +28,7 @@ while Q:
     now = Q.popleft()
     for n in adjList[now]:
         inDegree[n] -= 1
-        result[n] = max(result[n], result[now] + time[now])
+        result[n] = max(result[n], result[now] + time[now]) # (현재 건물에 저장된 시간)과 (이전 건물에 저장된 시간 + 이전 건물 짓는 시간) 중 큰 값
         if inDegree[n] == 0:
             Q.append(n)
 
