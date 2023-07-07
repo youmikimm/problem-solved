@@ -121,3 +121,4 @@ if useEdge == sNum - 2:
     print(result)
 else:
     print(-1)
+# 다시 공부할 것
