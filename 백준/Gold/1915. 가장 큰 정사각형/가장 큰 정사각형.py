@@ -12,6 +12,7 @@ for i in range(1, N+1):
         map[i][j] = int(tmp[j])
         if map[i][j] == 1:
             map[i][j] = min(map[i-1][j-1], map[i][j-1], map[i-1][j]) + 1
-        length = max(length, map[i][j])
+        if length < map[i][j]:
+            length = map[i][j]
 
 print(length * length)
