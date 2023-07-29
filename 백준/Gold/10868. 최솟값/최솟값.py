@@ -9,9 +9,9 @@ while leaf > 0:
     leaf //= 2
     height += 1
 
-size = 2 ** (height + 1)  # 높이가 h인 트리의 노드 개수는 2^h - 1이지만 h의 오차 때문에 넉넉하게
-tree = [sys.maxsize] * (size + 1)  # 트리에서 인덱스는 1부터 시작하니까 트리 배열 개수에 +1
-leafStartIdx = size // 2
+treeSize = (2 ** height) - 1
+tree = [sys.maxsize] * (treeSize + 1)  # 트리 배열의 인덱스는 1부터 시작
+leafStartIdx = 2 ** (height - 1)
 
 
 for i in range(leafStartIdx, leafStartIdx + N):
@@ -19,7 +19,7 @@ for i in range(leafStartIdx, leafStartIdx + N):
 
 
 # 최솟값 트리 채우기
-idx = size - 1
+idx = treeSize - 1
 while idx > 1:
     if tree[idx//2] > tree[idx]:
         tree[idx//2] = tree[idx]
