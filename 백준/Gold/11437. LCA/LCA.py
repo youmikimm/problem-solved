@@ -1,7 +1,6 @@
 import sys
 from collections import deque
 input = sys.stdin.readline
-print = sys.stdout.write
 
 N = int(input())    # 노드 개수
 tree = [[] for _ in range(N+1)]
@@ -42,13 +41,11 @@ BFS(1)
 
 
 def LCA(n1, n2):  # a, b의 공통 조상
-    if depth[n1] < depth[n2]:     # (a의 깊이 > b의 깊이)이도록 설정
-        tmp = n1
-        n1 = n2
-        n2 = tmp
-
     while depth[n1] != depth[n2]:   # depth 일치하도록
-        n1 = parent[n1]
+        if depth[n1] > depth[n2]:
+            n1 = parent[n1]
+        else:
+            n2 = parent[n2]
 
     while n1 != n2:
         n1 = parent[n1]
@@ -60,5 +57,4 @@ def LCA(n1, n2):  # a, b의 공통 조상
 M = int(input())    # 질의 개수
 for _ in range(M):
     a, b = map(int, input().split())    # a, b의 공통 조상 노드를 찾고 싶음
-    print(str(LCA(a, b)))
-    print("\n")
+    print(LCA(a, b))
