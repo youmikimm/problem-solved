@@ -4,9 +4,9 @@ def solution(park, routes):
 
     for r in routes:
         order = route_to_int(r)
-        if not passCondition1(order, currentPoint, parkEnd):
+        if not pass_condition1(order, currentPoint, parkEnd):
             continue
-        if not passCondition2(order, currentPoint, park):
+        if not pass_condition2(order, currentPoint, park):
             continue
         currentPoint = update_location(order, currentPoint)
 
@@ -34,39 +34,38 @@ def route_to_int(route):
     return order
 
 
-def passCondition1(order, current, parkEndIdx):   # 공원을 벗어나는지
+def pass_condition1(order, current, parkEndIdx):   # 공원을 벗어나면 False
     nextLoc = [order[i] + current[i] for i in range(2)]
 
-    if nextLoc[0] < 0 or nextLoc[1] < 0:
+    if nextLoc[0] < 0 or nextLoc[1] < 0 or nextLoc[0] > parkEndIdx[0] or nextLoc[1] > parkEndIdx[1]:
         return False
-    if nextLoc[0] > parkEndIdx[0] or nextLoc[1] > parkEndIdx[1]:
-        return False
-
+        
     return True
 
 
-def passCondition2(order, current, park):   # 장애물을 만나는지
+def pass_condition2(order, current, park):   # 장애물을 만나면 False
     nowY = current[0]
     nowX = current[1]
 
     nextY = nowY + order[0]
     nextX = nowX + order[1]
 
-    if nowY == nextY:  # 가로 방향 이동
+    if nowY == nextY:  # 가로 방향 이동, nowX < nextX이도록 보정
         if nowX > nextX:
             nowX, nextX = nextX, nowX
         if 'X' in park[nowY][nowX+1: nextX+1]:
             return False
     
-    if nowY > nextY:  # nowY < nextY 이도록 보정
+    if nowY > nextY:  # 세로 방향 이동 시, nowY < nextY이도록 보정
         nowY, nextY = nextY, nowY
-    for i in range(nowY, nextY+1):  # 세로 방향 이동
+        
+    for i in range(nowY, nextY+1):
         if park[i][nowX] == 'X':
             return False
+            
     return True
 
 
 def update_location(order, current):
     nextLoc = [order[i] + current[i] for i in range(2)]
     return nextLoc
-
