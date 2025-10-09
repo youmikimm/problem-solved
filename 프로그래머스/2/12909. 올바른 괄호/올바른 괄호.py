@@ -1,11 +1,10 @@
 def solution(s):
-    paren_list = list(s)
     stack = []
     
-    if paren_list[0] == ')':
+    if s[0] == ')':
         return False
     
-    for p in paren_list:
+    for p in s:
         if len(stack) == 0 and p == ')':
             return False
         
